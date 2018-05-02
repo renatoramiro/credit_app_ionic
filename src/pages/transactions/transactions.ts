@@ -22,7 +22,6 @@ export class TransactionsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
       public transactionProvider: TransactionProvider) {
-    console.log('constructor TransactionsPage');
     this.transactions = [];
   }
 
@@ -32,8 +31,6 @@ export class TransactionsPage {
       this.transactionProvider.getTransactions(auth).subscribe(data => {
         this.transactions = data.body['data'];
         this.currentUser = data.body['current_user'];
-        console.log(this.transactions);
-        console.log(this.currentUser);
       }, error => {
         console.error('Error');
       });

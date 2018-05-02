@@ -38,8 +38,6 @@ export class MainPage {
         }, error => {
           console.error('Error');
         });
-      } else {
-        this.navCtrl.setRoot(HomePage);
       }
     }
   }

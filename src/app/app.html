@@ -6,19 +6,16 @@
     </ion-header>
     <ion-content>
       <ion-list>
-        <button ion-item (click)="openPage(mainPage)">
+        <button ion-item menuClose (click)="openPage(mainPage)">
           Ver Perfil
         </button>
-        <button ion-item (click)="openPage(editProfilePage)">
+        <button ion-item menuClose (click)="openPage(editProfilePage)">
           Editar Perfil
         </button>
-        <button ion-item (click)="openPage(transactionsPage)">
+        <button ion-item menuClose (click)="openPage(transactionsPage)">
           Transações
         </button>
-        <button ion-item (click)="openPage(eventsPage)">
-          Transferência
-        </button>
-        <button ion-item (click)="closeMenu()">
+        <button ion-item menuClose (click)="logout()">
           Sair
         </button>
       </ion-list>
