@@ -14,5 +14,17 @@
 
 
 <ion-content padding>
+  <ion-list *ngIf="client">
+    <ion-item>
+      <ion-label floating>Nome</ion-label>
+      <ion-input type="text" [(ngModel)]="client.name"></ion-input>
+    </ion-item>
 
+    <ion-item>
+      <ion-label floating>Endereço</ion-label>
+      <ion-input type="text" [(ngModel)]="client.address"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <button ion-button outline block (click)="update()">Atualizar</button>
 </ion-content>
