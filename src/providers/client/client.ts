@@ -16,7 +16,7 @@ export class ClientProvider {
 
   getClientByToken(auth) {
     let headers = new HttpHeaders({'Content-Type':  'application/json', 'Authorization': auth});
-    return this.http.get("http://localhost:4000/api/getclientbytoken/",
+    return this.http.get("https://creditapp.ml/api/getclientbytoken/",
       {headers: headers, observe: 'response'});
   }
 

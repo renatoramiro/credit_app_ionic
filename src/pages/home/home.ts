@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 import 'rxjs/Rx';
 import { SessionProvider } from '../../providers/session/session';
 import { MainPage } from '../main/main';
@@ -11,14 +11,18 @@ import { MainPage } from '../main/main';
 export class HomePage {
   public input: any;
 
-  constructor(public navCtrl: NavController, public sessionProvider: SessionProvider) {
+  constructor(public navCtrl: NavController, public sessionProvider: SessionProvider,
+    public loadingCtrl: LoadingController) {
     this.input = {document: '222333', password: '123456'};
   }
 
   login(): void {
+    const loading = this.loadingCtrl.create({content: 'Fazendo login...'});
+    loading.present();
     let params = {"session": {"identity_document": this.input.document, "password": this.input.password}};
     if (this.input.document !== '' && this.input.password !== '') {
       this.sessionProvider.login(params).subscribe(data => {
+        loading.dismiss();
         let response = data.body['data'];
 
         sessionStorage.setItem("data", response.id);
@@ -36,6 +40,7 @@ export class HomePage {
         };
         this.navCtrl.setRoot(MainPage, params);
       }, error => {
+        loading.dismiss();
         console.log(error.error.message);
       });
     } else {

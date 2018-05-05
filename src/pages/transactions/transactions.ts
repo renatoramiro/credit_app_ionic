@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { TransactionProvider } from '../../providers/transaction/transaction';
 import { HomePage } from '../home/home';
 
@@ -21,17 +21,21 @@ export class TransactionsPage {
   public currentUser:any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-      public transactionProvider: TransactionProvider) {
+      public transactionProvider: TransactionProvider, public loadingCtrl: LoadingController) {
     this.transactions = [];
   }
 
   ionViewWillEnter() {
     let auth = sessionStorage.getItem('auth');
+    const loading = this.loadingCtrl.create({content: 'Buscando dados...'});
     if (auth) {
+      loading.present();
       this.transactionProvider.getTransactions(auth).subscribe(data => {
+        loading.dismiss();
         this.transactions = data.body['data'];
         this.currentUser = data.body['current_user'];
       }, error => {
+        loading.dismiss();
         console.error('Error');
       });
     } else {
