@@ -16,14 +16,19 @@ export class ClientProvider {
 
   getClientByToken(auth) {
     let headers = new HttpHeaders({'Content-Type':  'application/json', 'Authorization': auth});
-    return this.http.get("http://localhost:4000/api/getclientbytoken/",
+    return this.http.get("http://192.168.0.104:4000/api/getclientbytoken/",
+      {headers: headers, observe: 'response'});
+  }
+
+  createClient(auth, params) {
+    let headers = new HttpHeaders({'Content-Type':  'application/json', 'Authorization': auth});
+    return this.http.post("http://192.168.0.104:4000/api/clients/", JSON.stringify(params),
       {headers: headers, observe: 'response'});
   }
 
   updateClient(auth, params) {
-    
     let headers = new HttpHeaders({'Content-Type':  'application/json', 'Authorization': auth});
-    return this.http.put("http://localhost:4000/api/clients/" + params.client.id,
+    return this.http.put("http://192.168.0.104:4000/api/clients/" + params.client.id,
       JSON.stringify(params), {headers: headers, observe: 'response'});
   }
 

@@ -6,14 +6,13 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { TransactionsPage } from '../pages/transactions/transactions';
 import { EditProfilePage } from '../pages/edit-profile/edit-profile';
 import { HomePage } from '../pages/home/home';
-import { MainPage } from '../pages/main/main';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild('content') nav: NavController;
-  rootPage:any = MainPage;
+  rootPage:any = HomePage;
   transactionsPage:any = TransactionsPage;
   editProfilePage:any = EditProfilePage;
 
@@ -24,15 +23,6 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
-
-    app.viewWillEnter.subscribe(
-      (data) => {        
-        let auth = sessionStorage.getItem('auth');
-        if (data.component.name !== 'HomePage' && (auth === null || auth === undefined)) {
-          this.nav.setRoot(HomePage);
-        }
-      }
-    );
   }
 
   openPage(page) {

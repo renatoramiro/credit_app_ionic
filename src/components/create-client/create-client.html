@@ -1,0 +1,24 @@
+<ion-header padding-top>
+
+    <ion-navbar color="primary">
+      <ion-title>Criar Cliente</ion-title>
+    </ion-navbar>
+  
+  </ion-header>
+  
+  
+  <ion-content padding>
+    <ion-list>
+      <ion-item>
+        <ion-label floating>Nome</ion-label>
+        <ion-input type="text" [(ngModel)]="client.name"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label floating>Endereço</ion-label>
+        <ion-input type="text" [(ngModel)]="client.address"></ion-input>
+      </ion-item>
+    </ion-list>
+  
+    <button ion-button outline block (click)="create()">Criar Cliente</button>
+  </ion-content>

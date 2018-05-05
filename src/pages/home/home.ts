@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
+import { NavController, LoadingController, ModalController } from 'ionic-angular';
 import 'rxjs/Rx';
 import { SessionProvider } from '../../providers/session/session';
 import { MainPage } from '../main/main';
+import { RegistrationComponent } from '../../components/registration/registration';
 
 @Component({
   selector: 'page-home',
@@ -12,8 +13,15 @@ export class HomePage {
   public input: any;
 
   constructor(public navCtrl: NavController, public sessionProvider: SessionProvider,
-    public loadingCtrl: LoadingController) {
-    this.input = {document: '222333', password: '123456'};
+    public loadingCtrl: LoadingController, public modalCtrl: ModalController) {
+    this.input = {document: '', password: ''};
+  }
+
+  ionViewDidLoad(){
+    const auth = sessionStorage.getItem('auth');
+    if (auth) {
+      this.navCtrl.setRoot(MainPage);
+    }
   }
 
   login(): void {
@@ -48,7 +56,7 @@ export class HomePage {
     }
   }
 
-  openPage(page) {
-    console.log(page);
+  register() {
+    this.modalCtrl.create(RegistrationComponent).present();
   }
 }

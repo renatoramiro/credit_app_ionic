@@ -16,7 +16,7 @@ export class TransactionProvider {
 
   getTransactions(auth) {
     let headers = new HttpHeaders({'Content-Type':  'application/json', 'Authorization': auth});
-    return this.http.get("http://localhost:4000/api/listcredits/",
+    return this.http.get("http://192.168.0.104:4000/api/listcredits/",
       {headers: headers, observe: 'response'});
   }
 

@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Ativar Usuário</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list >
+    <ion-item>
+      <ion-label floating>Digite o PIN</ion-label>
+      <ion-input type="text" [(ngModel)]="pin"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <button ion-button outline block (click)="activateUser()">Ativar</button>
+</ion-content>
