@@ -16,6 +16,9 @@ import { TransactionsPage } from '../pages/transactions/transactions';
 import { SessionProvider } from '../providers/session/session';
 import { ClientProvider } from '../providers/client/client';
 import { TransactionProvider } from '../providers/transaction/transaction';
+import { ActivateUserComponent } from '../components/activate-user/activate-user';
+import { CreateClientComponent } from '../components/create-client/create-client';
+import { RegistrationComponent } from '../components/registration/registration';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,10 @@ import { TransactionProvider } from '../providers/transaction/transaction';
     HomePage,
     MainPage,
     EditProfilePage,
-    TransactionsPage
+    TransactionsPage,
+    ActivateUserComponent,
+    CreateClientComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +43,10 @@ import { TransactionProvider } from '../providers/transaction/transaction';
     HomePage,
     MainPage,
     EditProfilePage,
-    TransactionsPage
+    TransactionsPage,
+    ActivateUserComponent,
+    CreateClientComponent,
+    RegistrationComponent
   ],
   providers: [
     StatusBar,
