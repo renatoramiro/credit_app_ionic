@@ -34,7 +34,6 @@ export class HomePage {
         let response = data.body['data'];
 
         sessionStorage.setItem("data", response.id);
-        sessionStorage.setItem("auth", data.headers.get('Authorization'));
         let params = {
           id: response.id,
           "user_id": response.user_id,
@@ -49,7 +48,7 @@ export class HomePage {
         this.navCtrl.setRoot(MainPage, params);
       }, error => {
         loading.dismiss();
-        console.log(error.error.message);
+        console.log(error);
       });
     } else {
       console.log('You need fill all fields.');

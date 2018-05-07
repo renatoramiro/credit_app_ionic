@@ -26,21 +26,16 @@ export class TransactionsPage {
   }
 
   ionViewWillEnter() {
-    let auth = sessionStorage.getItem('auth');
     const loading = this.loadingCtrl.create({content: 'Buscando dados...'});
-    if (auth) {
-      loading.present();
-      this.transactionProvider.getTransactions(auth).subscribe(data => {
-        loading.dismiss();
-        this.transactions = data.body['data'];
-        this.currentUser = data.body['current_user'];
-      }, error => {
-        loading.dismiss();
-        console.error('Error');
-      });
-    } else {
-      this.navCtrl.setRoot(HomePage);
-    }
+    loading.present();
+    this.transactionProvider.getTransactions().subscribe(data => {
+      loading.dismiss();
+      this.transactions = data.body['data'];
+      this.currentUser = data.body['current_user'];
+    }, error => {
+      loading.dismiss();
+      console.log(error);
+    });
   }
 
 }

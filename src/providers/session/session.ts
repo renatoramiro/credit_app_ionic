@@ -16,19 +16,19 @@ export class SessionProvider {
 
   login(credentials) {
     let headers = new HttpHeaders({'Content-Type':  'application/json'});
-    return this.http.post('http://192.168.0.104:4000/api/signin', JSON.stringify(credentials), {
+    return this.http.post('http://192.168.0.102:4000/api/signin', JSON.stringify(credentials), {
       headers: headers, observe: 'response'});
   }
 
   register(params) {
     let headers = new HttpHeaders({'Content-Type':  'application/json'});
-    return this.http.post('http://192.168.0.104:4000/api/signup', JSON.stringify(params), {
+    return this.http.post('http://192.168.0.102:4000/api/signup', JSON.stringify(params), {
       headers: headers, observe: 'response'});
   }
 
   activate_user(params) {
     let headers = new HttpHeaders({'Content-Type':  'application/json'});
-    return this.http.post('http://192.168.0.104:4000/api/activateuser', JSON.stringify(params), {
+    return this.http.post('http://192.168.0.102:4000/api/activateuser', JSON.stringify(params), {
       headers: headers, observe: 'response'});
   }
 

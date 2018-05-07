@@ -14,9 +14,9 @@ export class TransactionProvider {
     console.log('Hello TransactionProvider Provider');
   }
 
-  getTransactions(auth) {
-    let headers = new HttpHeaders({'Content-Type':  'application/json', 'Authorization': auth});
-    return this.http.get("http://192.168.0.104:4000/api/listcredits/",
+  getTransactions() {
+    let headers = new HttpHeaders({'Content-Type':  'application/json'});
+    return this.http.get("http://192.168.0.102:4000/api/listcredits/",
       {headers: headers, observe: 'response'});
   }
 

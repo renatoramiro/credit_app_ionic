@@ -24,25 +24,21 @@ export class EditProfilePage {
   }
 
   ionViewWillEnter() {
-    const auth = sessionStorage.getItem('auth');
     const loading = this.loadingCtrl.create({content: 'Carregando dados..'});
     loading.present();
-    if (auth) {
-      this.clientProvider.getClientByToken(auth).subscribe((data) => {
-        this.client = data.body['data'];
-        loading.dismiss();
-      }, (error) => {
-        console.log(error);
-        loading.dismiss();
-      });
-    }
+    this.clientProvider.getClientByToken().subscribe((data) => {
+      this.client = data.body['data'];
+      loading.dismiss();
+    }, (error) => {
+      console.log(error);
+      loading.dismiss();
+    });
   }
 
   update() {
-    const auth = sessionStorage.getItem('auth');
     const loading = this.loadingCtrl.create({content: 'Enviando dados..'});
     loading.present();
-    if (auth && this.client.name !== '' && this.client.address !== '') {
+    if (this.client.name !== '' && this.client.address !== '') {
       let params = {
         client: {
           id: this.client.id,
@@ -50,7 +46,7 @@ export class EditProfilePage {
           address: this.client.address
         }
       };
-      this.clientProvider.updateClient(auth, params).subscribe(data => {
+      this.clientProvider.updateClient(params).subscribe(data => {
         loading.dismiss();
         this.navCtrl.pop();
         this.toastCtrl.create({

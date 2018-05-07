@@ -25,12 +25,11 @@ export class CreateClientComponent {
   }
 
   create() {
-    const auth = sessionStorage.getItem('auth');
-    if (auth && this.client.name !== '' && this.client.address !== '' && this.client.user_id) {
+    if (this.client.name !== '' && this.client.address !== '' && this.client.user_id) {
       const params = {client: this.client };
       const loading = this.loadingCtrl.create({content: 'Enviando dados...'});
       loading.present();
-      this.clientProvider.createClient(auth, params).subscribe(data => {
+      this.clientProvider.createClient(params).subscribe(data => {
         loading.dismiss();
         this.viewCtrl.dismiss();
         sessionStorage.removeItem("data");
