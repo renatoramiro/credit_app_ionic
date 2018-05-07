@@ -1,7 +1,6 @@
 import { Injectable, NgModule, ViewChild } from "@angular/core";
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS, HttpResponse } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
-import { HomePage } from "../pages/home/home";
 import { NavController } from "ionic-angular";
 
 @Injectable()
