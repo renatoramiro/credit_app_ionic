@@ -30,7 +30,6 @@ export class EditProfilePage {
       this.client = data.body['data'];
       loading.dismiss();
     }, (error) => {
-      console.log(error);
       loading.dismiss();
     });
   }
@@ -56,7 +55,6 @@ export class EditProfilePage {
         }).present();
       }, error => {
         loading.dismiss();
-        console.log(error);
       });
     }
   }

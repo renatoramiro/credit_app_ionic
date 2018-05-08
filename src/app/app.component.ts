@@ -32,6 +32,12 @@ export class MyApp {
     this.events.subscribe('client-updated', (client) => {
       this.client = client;
     });
+
+    this.events.subscribe('not-authorized', (option) => {
+      if (this.nav.getActive().component.name !== 'HomePage') {
+        this.logout();
+      }
+    })
   }
 
   openPage(page) {

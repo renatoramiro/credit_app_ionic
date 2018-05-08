@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, ModalController, AlertController } from 'ionic-angular';
+import { NavController, LoadingController, ModalController, ToastController } from 'ionic-angular';
 import 'rxjs/Rx';
 import { SessionProvider } from '../../providers/session/session';
 import { MainPage } from '../main/main';
@@ -13,7 +13,7 @@ export class HomePage {
   public input: any;
 
   constructor(public navCtrl: NavController, public sessionProvider: SessionProvider,
-    public loadingCtrl: LoadingController, public modalCtrl: ModalController, public alertCtrl: AlertController) {
+    public loadingCtrl: LoadingController, public modalCtrl: ModalController, public toastCtrl: ToastController) {
       this.setupInput();
   }
 
@@ -26,9 +26,10 @@ export class HomePage {
 
   login(): void {
     const loading = this.loadingCtrl.create({content: 'Fazendo login...'});
-    loading.present();
     let params = {"session": {"identity_document": this.input.document, "password": this.input.password}};
+    
     if (this.input.document !== '' && this.input.password !== '') {
+      loading.present();
       this.sessionProvider.login(params).subscribe(data => {
         loading.dismiss();
         let response = data.body['data'];
@@ -49,14 +50,9 @@ export class HomePage {
       }, error => {
         loading.dismiss();
         this.setupInput();
-        this.alertCtrl.create({
-          title: 'Problema ao entrar',
-          subTitle: error.error.message,
-          buttons: ['OK']
-        }).present();
       });
     } else {
-      console.log('You need fill all fields.');
+      this.toastCtrl.create({message: 'Preencha todos os campos.', duration: 3000}).present();
     }
   }
 

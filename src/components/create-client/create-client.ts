@@ -42,7 +42,6 @@ export class CreateClientComponent {
         }).present();
       }, error => {
         loading.dismiss();
-        console.log(error);
       });
     }
   }

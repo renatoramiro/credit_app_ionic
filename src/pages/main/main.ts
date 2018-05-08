@@ -34,8 +34,6 @@ export class MainPage {
       this.clientProvider.getClientByToken().subscribe(data => {
         this.client = data.body['data'];
         this.events.publish('load-client', this.client);
-      }, error => {
-        console.error('Error');
       });
     }
   }
