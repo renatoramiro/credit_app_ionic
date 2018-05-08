@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ToastController, Events } from 'ionic-angular';
 import { ClientProvider } from '../../providers/client/client';
 
 /**
@@ -20,7 +20,7 @@ export class EditProfilePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
       public clientProvider: ClientProvider, public loadingCtrl: LoadingController,
-      public toastCtrl: ToastController) {
+      public toastCtrl: ToastController, public events: Events) {
   }
 
   ionViewWillEnter() {
@@ -48,6 +48,7 @@ export class EditProfilePage {
       };
       this.clientProvider.updateClient(params).subscribe(data => {
         loading.dismiss();
+        this.events.publish('client-updated', data.body['data']);
         this.navCtrl.pop();
         this.toastCtrl.create({
           message: 'Atualizado com sucesso.',

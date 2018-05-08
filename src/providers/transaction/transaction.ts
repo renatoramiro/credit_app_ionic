@@ -16,7 +16,7 @@ export class TransactionProvider {
 
   getTransactions() {
     let headers = new HttpHeaders({'Content-Type':  'application/json'});
-    return this.http.get("http://192.168.0.102:4000/api/listcredits/",
+    return this.http.get("http://10.100.100.9:4000/api/listcredits/",
       {headers: headers, observe: 'response'});
   }
 
