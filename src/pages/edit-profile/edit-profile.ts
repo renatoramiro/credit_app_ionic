@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ToastController, Events } from 'ionic-angular';
 import { ClientProvider } from '../../providers/client/client';
 
 /**
@@ -20,29 +20,24 @@ export class EditProfilePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
       public clientProvider: ClientProvider, public loadingCtrl: LoadingController,
-      public toastCtrl: ToastController) {
+      public toastCtrl: ToastController, public events: Events) {
   }
 
   ionViewWillEnter() {
-    const auth = sessionStorage.getItem('auth');
     const loading = this.loadingCtrl.create({content: 'Carregando dados..'});
     loading.present();
-    if (auth) {
-      this.clientProvider.getClientByToken(auth).subscribe((data) => {
-        this.client = data.body['data'];
-        loading.dismiss();
-      }, (error) => {
-        console.log(error);
-        loading.dismiss();
-      });
-    }
+    this.clientProvider.getClientByToken().subscribe((data) => {
+      this.client = data.body['data'];
+      loading.dismiss();
+    }, (error) => {
+      loading.dismiss();
+    });
   }
 
   update() {
-    const auth = sessionStorage.getItem('auth');
     const loading = this.loadingCtrl.create({content: 'Enviando dados..'});
     loading.present();
-    if (auth && this.client.name !== '' && this.client.address !== '') {
+    if (this.client.name !== '' && this.client.address !== '') {
       let params = {
         client: {
           id: this.client.id,
@@ -50,8 +45,9 @@ export class EditProfilePage {
           address: this.client.address
         }
       };
-      this.clientProvider.updateClient(auth, params).subscribe(data => {
+      this.clientProvider.updateClient(params).subscribe(data => {
         loading.dismiss();
+        this.events.publish('client-updated', data.body['data']);
         this.navCtrl.pop();
         this.toastCtrl.create({
           message: 'Atualizado com sucesso.',
@@ -59,7 +55,6 @@ export class EditProfilePage {
         }).present();
       }, error => {
         loading.dismiss();
-        console.log(error);
       });
     }
   }

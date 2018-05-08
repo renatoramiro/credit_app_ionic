@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-// import { CurrencyPipe } from '@angular/common';
 import { ClientProvider } from '../../providers/client/client';
-import { HomePage } from '../home/home';
 import { EditProfilePage } from '../edit-profile/edit-profile';
 import { TransactionsPage } from '../transactions/transactions';
+import { Events } from 'ionic-angular';
 
 /**
  * Generated class for the MainPage page.
@@ -25,20 +24,17 @@ export class MainPage {
   public transactionsPage:any = TransactionsPage;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-      public clientProvider: ClientProvider) {
+      public clientProvider: ClientProvider, public events: Events) {
     this.client = navParams.data;
+    this.events.publish('load-client', this.client);
   }
 
   ionViewWillEnter() {
-    let auth = sessionStorage.getItem('auth');
     if (!this.client.id) {
-      if (auth) {
-        this.clientProvider.getClientByToken(auth).subscribe(data => {
-          this.client = data.body['data'];
-        }, error => {
-          console.error('Error');
-        });
-      }
+      this.clientProvider.getClientByToken().subscribe(data => {
+        this.client = data.body['data'];
+        this.events.publish('load-client', this.client);
+      });
     }
   }
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, ModalController } from 'ionic-angular';
+import { NavController, LoadingController, ModalController, ToastController } from 'ionic-angular';
 import 'rxjs/Rx';
 import { SessionProvider } from '../../providers/session/session';
 import { MainPage } from '../main/main';
@@ -13,8 +13,8 @@ export class HomePage {
   public input: any;
 
   constructor(public navCtrl: NavController, public sessionProvider: SessionProvider,
-    public loadingCtrl: LoadingController, public modalCtrl: ModalController) {
-    this.input = {document: '', password: ''};
+    public loadingCtrl: LoadingController, public modalCtrl: ModalController, public toastCtrl: ToastController) {
+      this.setupInput();
   }
 
   ionViewDidLoad(){
@@ -26,15 +26,15 @@ export class HomePage {
 
   login(): void {
     const loading = this.loadingCtrl.create({content: 'Fazendo login...'});
-    loading.present();
     let params = {"session": {"identity_document": this.input.document, "password": this.input.password}};
+    
     if (this.input.document !== '' && this.input.password !== '') {
+      loading.present();
       this.sessionProvider.login(params).subscribe(data => {
         loading.dismiss();
         let response = data.body['data'];
 
         sessionStorage.setItem("data", response.id);
-        sessionStorage.setItem("auth", data.headers.get('Authorization'));
         let params = {
           id: response.id,
           "user_id": response.user_id,
@@ -49,14 +49,18 @@ export class HomePage {
         this.navCtrl.setRoot(MainPage, params);
       }, error => {
         loading.dismiss();
-        console.log(error.error.message);
+        this.setupInput();
       });
     } else {
-      console.log('You need fill all fields.');
+      this.toastCtrl.create({message: 'Preencha todos os campos.', duration: 3000}).present();
     }
   }
 
   register() {
     this.modalCtrl.create(RegistrationComponent).present();
+  }
+
+  setupInput() {
+    this.input = {document: '', password: ''};
   }
 }

@@ -19,6 +19,7 @@ import { TransactionProvider } from '../providers/transaction/transaction';
 import { ActivateUserComponent } from '../components/activate-user/activate-user';
 import { CreateClientComponent } from '../components/create-client/create-client';
 import { RegistrationComponent } from '../components/registration/registration';
+import { InterceptorModule } from '../module/intercetor.module';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { RegistrationComponent } from '../components/registration/registration';
     BrowserModule,
     HttpClientModule,
     HttpModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    InterceptorModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -5,6 +5,16 @@
       </ion-toolbar>
     </ion-header>
     <ion-content>
+      <ion-list *ngIf="client">
+        <ion-item>
+          <ion-avatar item-left>
+            <img src="https://www.w3schools.com/howto/img_avatar.png">
+          </ion-avatar>
+          <h2>{{client.name}}</h2>
+          <p>{{client.agency}} / {{client.account}}</p>
+        </ion-item>
+      </ion-list>
+
       <ion-list>
         <button ion-item menuClose (click)="openPage(editProfilePage)">
           Perfil
