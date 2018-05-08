@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, ModalController } from 'ionic-angular';
+import { NavController, LoadingController, ModalController, AlertController } from 'ionic-angular';
 import 'rxjs/Rx';
 import { SessionProvider } from '../../providers/session/session';
 import { MainPage } from '../main/main';
@@ -13,8 +13,8 @@ export class HomePage {
   public input: any;
 
   constructor(public navCtrl: NavController, public sessionProvider: SessionProvider,
-    public loadingCtrl: LoadingController, public modalCtrl: ModalController) {
-    this.input = {document: '', password: ''};
+    public loadingCtrl: LoadingController, public modalCtrl: ModalController, public alertCtrl: AlertController) {
+      this.setupInput();
   }
 
   ionViewDidLoad(){
@@ -48,7 +48,12 @@ export class HomePage {
         this.navCtrl.setRoot(MainPage, params);
       }, error => {
         loading.dismiss();
-        console.log(error);
+        this.setupInput();
+        this.alertCtrl.create({
+          title: 'Problema ao entrar',
+          subTitle: error.error.message,
+          buttons: ['OK']
+        }).present();
       });
     } else {
       console.log('You need fill all fields.');
@@ -57,5 +62,9 @@ export class HomePage {
 
   register() {
     this.modalCtrl.create(RegistrationComponent).present();
+  }
+
+  setupInput() {
+    this.input = {document: '', password: ''};
   }
 }
