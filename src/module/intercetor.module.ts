@@ -8,7 +8,7 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
   constructor(public alertCtrl: AlertController, public events: Events) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    let auth = sessionStorage.getItem('auth');
+    let auth = localStorage.getItem('auth');
     let dupReq = req;
 
     if (auth) {
@@ -16,7 +16,7 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
     }
     return next.handle(dupReq).do(event => {
       if (event instanceof HttpResponse) {
-        sessionStorage.setItem('auth', event.headers.get("Authorization"));
+        localStorage.setItem('auth', event.headers.get("Authorization"));
       }
     }, (err) => {
       if (err instanceof HttpErrorResponse) {

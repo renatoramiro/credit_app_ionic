@@ -32,8 +32,8 @@ export class CreateClientComponent {
       this.clientProvider.createClient(params).subscribe(data => {
         loading.dismiss();
         this.viewCtrl.dismiss();
-        sessionStorage.removeItem("data");
-        sessionStorage.removeItem("auth");
+        localStorage.removeItem("data");
+        localStorage.removeItem("auth");
         
         this.alertCtrl.create({
           title: 'Sucesso',

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { ClientProvider } from '../../providers/client/client';
 import { EditProfilePage } from '../edit-profile/edit-profile';
 import { TransactionsPage } from '../transactions/transactions';
@@ -24,16 +24,22 @@ export class MainPage {
   public transactionsPage:any = TransactionsPage;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-      public clientProvider: ClientProvider, public events: Events) {
+      public clientProvider: ClientProvider, public events: Events,
+      public loadingCtrl: LoadingController) {
     this.client = navParams.data;
     this.events.publish('load-client', this.client);
   }
 
   ionViewWillEnter() {
+    const loading = this.loadingCtrl.create({content: 'Carregando dados..'});
     if (!this.client.id) {
+      loading.present();
       this.clientProvider.getClientByToken().subscribe(data => {
+        loading.dismiss();
         this.client = data.body['data'];
         this.events.publish('load-client', this.client);
+      }, error => {
+        loading.dismiss();
       });
     }
   }

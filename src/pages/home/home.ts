@@ -13,12 +13,14 @@ export class HomePage {
   public input: any;
 
   constructor(public navCtrl: NavController, public sessionProvider: SessionProvider,
-    public loadingCtrl: LoadingController, public modalCtrl: ModalController, public toastCtrl: ToastController) {
+    public loadingCtrl: LoadingController, public modalCtrl: ModalController,
+    public toastCtrl: ToastController) {
       this.setupInput();
+      this.setRootPage();
   }
 
-  ionViewDidLoad(){
-    const auth = sessionStorage.getItem('auth');
+  setRootPage(){
+    let auth = localStorage.getItem('auth');
     if (auth) {
       this.navCtrl.setRoot(MainPage);
     }
@@ -34,7 +36,7 @@ export class HomePage {
         loading.dismiss();
         let response = data.body['data'];
 
-        sessionStorage.setItem("data", response.id);
+        localStorage.setItem("data", response.id);
         let params = {
           id: response.id,
           "user_id": response.user_id,
