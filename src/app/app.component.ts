@@ -45,8 +45,8 @@ export class MyApp {
   }
 
   logout() {
-    sessionStorage.removeItem('auth');
-    sessionStorage.removeItem('data');
+    localStorage.removeItem('auth');
+    localStorage.removeItem('data');
     this.nav.setRoot(HomePage);
   }
 }

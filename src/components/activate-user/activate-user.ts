@@ -32,8 +32,8 @@ export class ActivateUserComponent {
       loading.dismiss();
       this.viewCtrl.dismiss();
       let response = data.body['data'];
-      sessionStorage.setItem("data", response.id);
-      sessionStorage.setItem("auth", data.headers.get('Authorization'));
+      localStorage.setItem("data", response.id);
+      localStorage.setItem("auth", data.headers.get('Authorization'));
       this.modalCtrl.create(CreateClientComponent, {response: response}).present();
     }, error => {
       loading.dismiss();

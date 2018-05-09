@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="ml.creditapp" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Credit App</name>
+    <name>Credit Digital</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="renato.ipj@gmail.com" href="https://creditapp.ml">Crédito Digital</author>
-    <content original-src="index.html" src="http://192.168.0.104:8100" />
+    <content original-src="index.html" src="http://192.168.0.103:8101" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -84,4 +84,6 @@
     <plugin name="cordova-plugin-ionic-keyboard" spec="2.0.5" />
     <allow-navigation href="http://192.168.0.102:8100" />
     <allow-navigation href="http://192.168.0.104:8100" />
+    <allow-navigation href="http://192.168.0.103:8101" />
+    <engine name="ios" spec="4.5.4" />
 </widget>
