@@ -1,29 +1,35 @@
 import { Component } from '@angular/core';
-import { NavParams, LoadingController, ViewController, Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, Events } from 'ionic-angular';
 import { TransactionProvider } from '../../providers/transaction/transaction';
 
 /**
- * Generated class for the SendCreditComponent component.
+ * Generated class for the SendCreditPage page.
  *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
  */
+
+@IonicPage()
 @Component({
-  selector: 'send-credit',
-  templateUrl: 'send-credit.html'
+  selector: 'page-send-credit',
+  templateUrl: 'send-credit.html',
 })
-export class SendCreditComponent {
+export class SendCreditPage {
 
   public origin:any;
   public destiny:any;
   public value:any;
 
-  constructor(public navParams: NavParams, public transactionProvider: TransactionProvider,
-      public loadingCtrl: LoadingController, public viewCtrl: ViewController,
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+      public transactionProvider: TransactionProvider, public loadingCtrl: LoadingController,
       public events: Events) {
     this.origin = navParams.data.origin;
     this.destiny = navParams.data.destiny;
     this.value = parseFloat(navParams.data['value']).toFixed(2);
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad SendCreditPage');
   }
 
   sendCredit() {
@@ -37,17 +43,12 @@ export class SendCreditComponent {
     const loading = this.loadingCtrl.create({content: 'Enviando dados...'});
     loading.present();
     this.transactionProvider.sendCredits(params).subscribe(data => {
-      this.viewCtrl.dismiss();
-      this.events.publish('credits-sended', true);
+      this.navCtrl.popToRoot();
       loading.dismiss();
     }, error => {
       loading.dismiss();
-      this.viewCtrl.dismiss();
+      this.navCtrl.pop();
     });
-  }
-
-  dismiss() {
-    this.viewCtrl.dismiss();
   }
 
 }

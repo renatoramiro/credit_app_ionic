@@ -21,7 +21,7 @@ import { CreateClientComponent } from '../components/create-client/create-client
 import { RegistrationComponent } from '../components/registration/registration';
 import { InterceptorModule } from '../module/intercetor.module';
 import { CreditPage } from '../pages/credit/credit';
-import { SendCreditComponent } from '../components/send-credit/send-credit';
+import { SendCreditPage } from '../pages/send-credit/send-credit';
 
 @NgModule({
   declarations: [
@@ -34,7 +34,7 @@ import { SendCreditComponent } from '../components/send-credit/send-credit';
     CreateClientComponent,
     RegistrationComponent,
     CreditPage,
-    SendCreditComponent
+    SendCreditPage
   ],
   imports: [
     BrowserModule,
@@ -54,7 +54,7 @@ import { SendCreditComponent } from '../components/send-credit/send-credit';
     CreateClientComponent,
     RegistrationComponent,
     CreditPage,
-    SendCreditComponent
+    SendCreditPage
   ],
   providers: [
     StatusBar,

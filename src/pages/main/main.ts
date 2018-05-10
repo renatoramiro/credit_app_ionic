@@ -31,10 +31,6 @@ export class MainPage {
       public loadingCtrl: LoadingController) {
     this.client = navParams.data;
     this.events.publish('load-client', this.client);
-
-    events.subscribe('load-after-send-credit', data => {
-      this.loadClient();
-    });
   }
 
   ionViewWillEnter() {
@@ -47,7 +43,7 @@ export class MainPage {
     this.navCtrl.push(page, this.client);
   }
 
-  loadClient() {
+  loadClient() { 
     this.loading.present();
     this.clientProvider.getClientByToken().subscribe(data => {
       this.loading.dismiss();

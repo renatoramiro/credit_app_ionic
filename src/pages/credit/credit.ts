@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ModalController, Events } from 'ionic-angular';
 import { TransactionProvider } from '../../providers/transaction/transaction';
-import { SendCreditComponent } from '../../components/send-credit/send-credit';
+import { SendCreditPage } from '../send-credit/send-credit';
 
 /**
  * Generated class for the CreditPage page.
@@ -24,10 +24,6 @@ export class CreditPage {
     public modalCtrl: ModalController, public events: Events) {
     this.client = navParams.data;
     this.input = {agency: '', account: '', value: ''};
-    events.subscribe('credits-sended', data => {
-      navCtrl.pop();
-      events.publish('load-after-send-credit', true);
-    });
   }
 
   ionViewDidLoad() {
@@ -43,7 +39,7 @@ export class CreditPage {
         loading.dismiss();
         let response = data.body['data'];
         let transaction = {destiny: response, origin: this.client, value: this.input.value};
-        this.modalCtrl.create(SendCreditComponent, transaction).present();
+        this.navCtrl.push(SendCreditPage, transaction);
       }, error => {
         loading.dismiss();
       });
