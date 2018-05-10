@@ -20,6 +20,8 @@ import { ActivateUserComponent } from '../components/activate-user/activate-user
 import { CreateClientComponent } from '../components/create-client/create-client';
 import { RegistrationComponent } from '../components/registration/registration';
 import { InterceptorModule } from '../module/intercetor.module';
+import { CreditPage } from '../pages/credit/credit';
+import { SendCreditComponent } from '../components/send-credit/send-credit';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { InterceptorModule } from '../module/intercetor.module';
     TransactionsPage,
     ActivateUserComponent,
     CreateClientComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    CreditPage,
+    SendCreditComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +52,9 @@ import { InterceptorModule } from '../module/intercetor.module';
     TransactionsPage,
     ActivateUserComponent,
     CreateClientComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    CreditPage,
+    SendCreditComponent
   ],
   providers: [
     StatusBar,

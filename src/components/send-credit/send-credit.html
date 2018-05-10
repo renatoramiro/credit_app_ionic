@@ -1,0 +1,52 @@
+<ion-header padding-top>
+  <ion-navbar color="primary">
+    <ion-title>Enviar Crédito</ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text showWhen="ios">Cancelar</span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+  
+  
+<ion-content padding>
+  <p text-center>Conta de Origen</p>
+  <ion-list *ngIf="origin">
+    <ion-item>
+      <ion-label>Nome</ion-label>
+      <ion-input type="text" disabled [(ngModel)]="origin.name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Agencia</ion-label>
+      <ion-input type="text" disabled [(ngModel)]="origin.agency"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Conta</ion-label>
+      <ion-input type="text" disabled [(ngModel)]="origin.account"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Valor debitado</ion-label>
+      <ion-input type="text" disabled [(ngModel)]="value"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <p text-center>Conta de Destino</p>
+  <ion-list *ngIf="destiny">
+    <ion-item>
+      <ion-label>Nome</ion-label>
+      <ion-input type="text" disabled [(ngModel)]="destiny.name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Agencia</ion-label>
+      <ion-input type="text" disabled [(ngModel)]="destiny.agency"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Conta</ion-label>
+      <ion-input type="text" disabled [(ngModel)]="destiny.account"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <button ion-button outline block (click)="sendCredit()">Enviar</button>
+</ion-content>
