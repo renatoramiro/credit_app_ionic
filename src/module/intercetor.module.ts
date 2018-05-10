@@ -29,6 +29,14 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
           }).present();
         }
 
+        if (err.status === 400) {
+          this.alertCtrl.create({
+            title: 'Opss',
+            subTitle: err.error.errors.value[0],
+            buttons: ['OK']
+          }).present();
+        }
+
         if (err.status === 404) {
           this.alertCtrl.create({
             title: 'Tivemos um problema',
