@@ -18,11 +18,13 @@ import { SendCreditPage } from '../send-credit/send-credit';
 export class CreditPage {
   input:any;
   client:any;
+  callback:any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
       public transactionProvider: TransactionProvider, public loadingCtrl: LoadingController,
     public modalCtrl: ModalController, public events: Events) {
-    this.client = navParams.data;
+    this.client = navParams.data.client;
+    this.callback = navParams.data.callback;
     this.input = {agency: '', account: '', value: ''};
   }
 
@@ -38,7 +40,7 @@ export class CreditPage {
       this.transactionProvider.getClientTransaction(params).subscribe(data => {
         loading.dismiss();
         let response = data.body['data'];
-        let transaction = {destiny: response, origin: this.client, value: this.input.value};
+        let transaction = {destiny: response, origin: this.client, value: this.input.value, callback: this.callback};
         this.navCtrl.push(SendCreditPage, transaction);
       }, error => {
         loading.dismiss();

@@ -33,14 +33,21 @@ export class MainPage {
     this.events.publish('load-client', this.client);
   }
 
-  ionViewWillEnter() {
+  ionViewDidEnter() {
     if (!this.client.id) {
       this.loadClient();
     }
   }
 
   openPage(page) {
-    this.navCtrl.push(page, this.client);
+    this.navCtrl.push(page, {client: this.client, callback: this.popCallback});
+  }
+
+  popCallback(params) {
+    return new Promise((resolve, reject) => {
+      this.client = params.client;
+      resolve();
+    });
   }
 
   loadClient() { 
