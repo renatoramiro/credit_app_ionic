@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, Events, ToastController } from 'ionic-angular';
 import { TransactionProvider } from '../../providers/transaction/transaction';
 
 /**
@@ -23,7 +23,7 @@ export class SendCreditPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
       public transactionProvider: TransactionProvider, public loadingCtrl: LoadingController,
-      public events: Events) {
+      public events: Events, private toastCtrl: ToastController) {
     this.origin = navParams.data.origin;
     this.destiny = navParams.data.destiny;
     this.value = parseFloat(navParams.data['value']).toFixed(2);
@@ -50,6 +50,10 @@ export class SendCreditPage {
       this.callback({client: this.origin}).then(()=>{
         this.navCtrl.popToRoot();
      });
+     this.toastCtrl.create({
+      message: 'Transação realizada com sucesso.',
+      duration: 3000
+    }).present();
     }, error => {
       loading.dismiss();
       this.navCtrl.pop();
