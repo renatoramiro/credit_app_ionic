@@ -22,6 +22,7 @@ import { RegistrationComponent } from '../components/registration/registration';
 import { InterceptorModule } from '../module/intercetor.module';
 import { CreditPage } from '../pages/credit/credit';
 import { SendCreditPage } from '../pages/send-credit/send-credit';
+import { TransferInfoComponent } from '../components/transfer-info/transfer-info';
 
 @NgModule({
   declarations: [
@@ -34,13 +35,16 @@ import { SendCreditPage } from '../pages/send-credit/send-credit';
     CreateClientComponent,
     RegistrationComponent,
     CreditPage,
-    SendCreditPage
+    SendCreditPage,
+    TransferInfoComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     HttpModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      backButtonText: 'Voltar'
+    }),
     InterceptorModule
   ],
   bootstrap: [IonicApp],
@@ -54,7 +58,8 @@ import { SendCreditPage } from '../pages/send-credit/send-credit';
     CreateClientComponent,
     RegistrationComponent,
     CreditPage,
-    SendCreditPage
+    SendCreditPage,
+    TransferInfoComponent
   ],
   providers: [
     StatusBar,

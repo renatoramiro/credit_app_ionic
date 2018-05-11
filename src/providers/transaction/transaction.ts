@@ -16,19 +16,19 @@ export class TransactionProvider {
 
   getTransactions() {
     let headers = new HttpHeaders({'Content-Type':  'application/json'});
-    return this.http.get("https://creditapp.ml/api/listcredits/",
+    return this.http.get("http://localhost:4000/api/listcredits/",
       {headers: headers, observe: 'response'});
   }
 
   getClientTransaction(params) {
     let headers = new HttpHeaders({'Content-Type':  'application/json'});
-    return this.http.post("https://creditapp.ml/api/getclient/", JSON.stringify(params),
+    return this.http.post("http://localhost:4000/api/getclient/", JSON.stringify(params),
       {headers: headers, observe: 'response'});
   }
 
   sendCredits(params) {
     let headers = new HttpHeaders({'Content-Type':  'application/json'});
-    return this.http.post("https://creditapp.ml/api/sendcredit/", JSON.stringify(params),
+    return this.http.post("http://localhost:4000/api/sendcredit/", JSON.stringify(params),
       {headers: headers, observe: 'response'});
   }
 

@@ -17,14 +17,14 @@
     <ion-label>Nenhuma transação realizada.</ion-label>
   </div>
   <ion-list *ngIf="transactions.length > 0">
-    <button ion-item *ngFor="let item of transactions">
+    <button ion-item *ngFor="let item of transactions" (click)="showInfo(item.client_id)">
       <ion-grid>
         <ion-row [ngClass]="item.client_id === currentUser ? 'verde' : 'vermelho'">
           <ion-col col-1 no-margin>
             <ion-icon name="{{item.client_id === currentUser ? 'arrow-round-up': 'arrow-round-down'}}"></ion-icon>
           </ion-col>
           <ion-col col-4 no-margin class="transaction-item">{{item.value | currency:'BRL'}}</ion-col>
-          <ion-col col-4 no-margin class="transaction-item">{{item.inserted_at | date:'dd-MM-yyyy'}}</ion-col>
+          <ion-col col-4 no-margin class="transaction-item">{{item.inserted_at | date:'dd-MM-yyyy HH:mm:ss'}}</ion-col>
         </ion-row>
       </ion-grid>
     </button>  
