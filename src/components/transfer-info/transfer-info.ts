@@ -15,7 +15,7 @@ export class TransferInfoComponent {
 
   client:any;
 
-  constructor(public viewCtrl: ViewController, private navParams: NavParams) {
+  constructor(public viewCtrl: ViewController, public navParams: NavParams) {
     this.client = navParams.data.response;
   }
   

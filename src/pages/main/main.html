@@ -18,8 +18,12 @@
   <ion-grid>
     <ion-row>
       <ion-col col-6>
-        <div class="saldo-em-conta">Saldo em conta</div>
-        <div class="valor-saldo">{{client.credit | currency:'BRL'}}</div>
+        <div class="saldo-em-conta">
+          <ion-label color="gray">Saldo em conta</ion-label>
+        </div>
+        <div class="valor-saldo">
+          <ion-label color="primary">{{client.credit | currency:'BRL'}}</ion-label>
+        </div>
       </ion-col>
 
       <ion-col col-6>
@@ -32,17 +36,17 @@
   <ion-grid>
     <ion-row>
       <ion-col col-sm-6 col-xs-6>
-        <button ion-button icon-left outline (click)="openPage(transactionsPage)">
+        <button ion-button icon-left large outline block (click)="openPage(transactionsPage)">
           <ion-icon name="list-box"></ion-icon>
           <span class="icon-title">Transações</span>
         </button>
       </ion-col>
 
       <ion-col col-sm-6 col-xs-6>
-          <button ion-button icon-left outline (click)="openPage(editPage)">
-            <ion-icon name="person"></ion-icon>
-            <ion-label class="icon-title">Perfil</ion-label>
-          </button>
+        <button ion-button icon-left large outline block (click)="openPage(editPage)">
+          <ion-icon name="person"></ion-icon>
+          <ion-label class="icon-title">Perfil</ion-label>
+        </button>
       </ion-col>
     </ion-row>
   </ion-grid>

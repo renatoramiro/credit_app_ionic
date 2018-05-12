@@ -16,25 +16,25 @@ export class ClientProvider {
 
   getClientByToken() {
     let headers = new HttpHeaders({'Content-Type':  'application/json'});
-    return this.http.get("http://localhost:4000/api/getclientbytoken/",
+    return this.http.get("https://creditapp.ml/api/getclientbytoken/",
       {headers: headers, observe: 'response'});
   }
 
   createClient(params) {
     let headers = new HttpHeaders({'Content-Type':  'application/json'});
-    return this.http.post("http://localhost:4000/api/clients/", JSON.stringify(params),
+    return this.http.post("https://creditapp.ml/api/clients/", JSON.stringify(params),
       {headers: headers, observe: 'response'});
   }
 
   updateClient(params) {
     let headers = new HttpHeaders({'Content-Type':  'application/json'});
-    return this.http.put("http://localhost:4000/api/clients/" + params.client.id,
+    return this.http.put("https://creditapp.ml/api/clients/" + params.client.id,
       JSON.stringify(params), {headers: headers, observe: 'response'});
   }
 
   getClientById(id) {
     let headers = new HttpHeaders({'Content-Type':  'application/json'});
-    return this.http.get("http://localhost:4000/api/clients/" + id,
+    return this.http.get("https://creditapp.ml/api/clients/" + id,
       {headers: headers, observe: 'response'});
   }
 

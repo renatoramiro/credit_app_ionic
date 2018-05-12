@@ -4,25 +4,25 @@
         <ion-title>Menu</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content>
-      <ion-list *ngIf="client">
-        <ion-item>
+    <ion-content id="menu-content">
+      <ion-list *ngIf="client" no-lines>
+        <ion-item class="item-transparent">
           <ion-avatar item-left>
             <img src="https://www.w3schools.com/howto/img_avatar.png">
           </ion-avatar>
-          <h2>{{client.name}}</h2>
-          <p>{{client.agency}} / {{client.account}}</p>
+          <h2 ion-text color="light">{{client.name}}</h2>
+          <p ion-text color="light">{{client.agency}} / {{client.account}}</p>
         </ion-item>
       </ion-list>
-
-      <ion-list>
-        <button ion-item menuClose (click)="openPage(editProfilePage)">
+      <hr>
+      <ion-list no-lines>
+        <button color="primary" ion-item menuClose (click)="openPage(editProfilePage)">
           Perfil
         </button>
-        <button ion-item menuClose (click)="openPage(transactionsPage)">
+        <button color="primary" ion-item menuClose (click)="openPage(transactionsPage)">
           Transações
         </button>
-        <button ion-item menuClose (click)="logout()">
+        <button color="primary" ion-item menuClose (click)="logout()">
           Sair
         </button>
       </ion-list>
