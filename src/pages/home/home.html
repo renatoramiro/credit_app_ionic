@@ -1,16 +1,18 @@
-<ion-header padding-top>
+<!-- <ion-header padding-top>
   <ion-navbar color="primary">
     <ion-title>
       Entrar
     </ion-title>
   </ion-navbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content padding>
-  <ion-list>
+  <h1 ion-text color="primary" text-center>Crédito Digital</h1>
+  <h5 ion-text color="gray" text-center>Transfira créditos entre operadoras!</h5>
+  <ion-list no-lines>
     <ion-item>
       <ion-label floating>Documento</ion-label>
-      <ion-input type="text" [(ngModel)]="input.document"></ion-input>
+      <ion-input type="number" [(ngModel)]="input.document"></ion-input>
     </ion-item>
 
     <ion-item>
@@ -20,5 +22,5 @@
   </ion-list>
 
   <button ion-button outline block (click)="login()">Entrar</button>
-  <button ion-button block (click)="register()">Registar</button>
+  <button class="button-top" ion-button block (click)="register()">Registar</button>
 </ion-content>

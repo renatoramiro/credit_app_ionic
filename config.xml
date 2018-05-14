@@ -3,7 +3,7 @@
     <name>Crédito Digital</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="renato.ipj@gmail.com" href="https://creditapp.ml">Crédito Digital</author>
-    <content original-src="index.html" src="http://192.168.0.111:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -85,6 +85,7 @@
     <allow-navigation href="http://192.168.0.102:8100" />
     <allow-navigation href="http://192.168.0.104:8100" />
     <allow-navigation href="http://192.168.0.103:8101" />
+    <engine name="ios" spec="~4.5.4" />
     <allow-navigation href="http://192.168.0.111:8100" />
-    <engine name="ios" spec="4.5.4" />
+    <allow-navigation href="http://192.168.0.102:8101" />
 </widget>
