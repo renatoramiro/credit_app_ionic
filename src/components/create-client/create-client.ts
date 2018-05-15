@@ -46,4 +46,8 @@ export class CreateClientComponent {
     }
   }
 
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
+
 }

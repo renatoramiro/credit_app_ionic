@@ -1,14 +1,19 @@
 <ion-header padding-top>
-    <ion-navbar color="primary">
-      <ion-title>Criar Conta</ion-title>
-    </ion-navbar>
-  </ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Criar Conta</ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text>Fechar</span>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
   
 <ion-content padding>
   <ion-list >
     <ion-item>
       <ion-label floating>Documento</ion-label>
-      <ion-input type="text" [(ngModel)]="user.identity_document"></ion-input>
+      <ion-input type="number" [(ngModel)]="user.identity_document"></ion-input>
     </ion-item>
 
     <ion-item>

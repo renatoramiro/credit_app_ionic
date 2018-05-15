@@ -7,6 +7,37 @@ import { AlertController, Events } from "ionic-angular";
 export class HttpsRequestInterceptor implements HttpInterceptor {
   constructor(public alertCtrl: AlertController, public events: Events) {}
 
+  getFields(key) {
+    let valuesField = {
+      'identity_document': "Documento",
+      'phone': "Telefone",
+      'password': "Senha"
+    }
+
+    if (valuesField[key] === undefined) {
+      return key;
+    }
+    return valuesField[key];
+  }
+
+  getErrors(err) {
+    let messageError = "";
+    for (let index = 0; index < Object.keys(err.error.errors).length; index++) {
+      const key = Object.keys(err.error.errors)[index];
+      let paragraph = "<p>" + this.getFields(key) + "</p>";
+      messageError += paragraph;
+      let values = err.error.errors[key];
+      messageError += "<ul>";
+      for (let index = 0; index < values.length; index++) {
+        const value = values[index];
+        messageError += "<li>" + value + "</li>";
+      }
+      messageError += "</ul>";
+    }
+
+    return messageError;
+  }
+
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let auth = localStorage.getItem('auth');
     let dupReq = req;
@@ -19,7 +50,7 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
         localStorage.setItem('auth', event.headers.get("Authorization"));
       }
     }, (err) => {
-      if (err instanceof HttpErrorResponse) {
+      if (err instanceof HttpErrorResponse) {        
         if (err.status === 401) {
           this.events.publish('not-authorized', true);
           this.alertCtrl.create({
@@ -42,6 +73,14 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
           this.alertCtrl.create({
             title: 'Tivemos um problema',
             subTitle: messageError,
+            buttons: ['OK']
+          }).present();
+        }
+
+        if (err.status === 422) {
+          this.alertCtrl.create({
+            title: 'Tivemos um problema',
+            subTitle: this.getErrors(err),
             buttons: ['OK']
           }).present();
         }

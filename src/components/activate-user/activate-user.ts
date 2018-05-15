@@ -45,4 +45,8 @@ export class ActivateUserComponent {
     });
   }
 
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
+
 }

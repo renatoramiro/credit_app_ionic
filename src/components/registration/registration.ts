@@ -40,4 +40,8 @@ export class RegistrationComponent {
       });
     }
   }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
 }
