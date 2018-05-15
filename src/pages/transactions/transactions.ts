@@ -40,14 +40,16 @@ export class TransactionsPage {
   }
 
   showInfo(clientId) {
-    const loading = this.loadingCtrl.create({content: 'Buscando dados...'});
-    loading.present();
-    this.clientProvider.getClientById(clientId).subscribe(data => {
-      loading.dismiss();
-      this.modalCtrl.create(TransferInfoComponent, {response: data.body['data']}).present();
-    }, err => {
-      loading.dismiss();
-    });
+    if (clientId !== this.currentUser) {
+      const loading = this.loadingCtrl.create({content: 'Buscando dados...'});
+      loading.present();
+      this.clientProvider.getClientById(clientId).subscribe(data => {
+        loading.dismiss();
+        this.modalCtrl.create(TransferInfoComponent, {response: data.body['data']}).present();
+      }, err => {
+        loading.dismiss();
+      });
+    }
   }
 
 }
