@@ -4,6 +4,8 @@ import 'rxjs/Rx';
 import { SessionProvider } from '../../providers/session/session';
 import { MainPage } from '../main/main';
 import { RegistrationComponent } from '../../components/registration/registration';
+import { ActivateUserComponent } from '../../components/activate-user/activate-user';
+import { CreateClientComponent } from '../../components/create-client/create-client';
 
 @Component({
   selector: 'page-home',
@@ -52,9 +54,26 @@ export class HomePage {
       }, error => {
         loading.dismiss();
         this.setupInput();
+        this.openModalAfterError(error);
       });
     } else {
       this.toastCtrl.create({message: 'Preencha todos os campos.', duration: 3000}).present();
+    }
+  }
+
+  openModalAfterError(error) {
+    if (error.status === 412 && error.error.condition === 'not_activated') {
+      let response = {
+        id: error.error.id
+      };
+      this.modalCtrl.create(ActivateUserComponent, {response: response}).present();
+    }
+
+    if (error.status === 412 && error.error.condition === 'client_not_created') {
+      let response = {
+        id: error.error.id
+      };
+      this.modalCtrl.create(CreateClientComponent, {response: response}).present();
     }
   }
 
