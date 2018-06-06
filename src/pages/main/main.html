@@ -40,6 +40,7 @@
           <ion-icon name="list-box"></ion-icon>
           <span class="icon-title">Transações</span>
         </button>
+        <ion-badge *ngIf="showBadge" id="notifications-badge" color="danger">+{{badgeCount}}</ion-badge>
       </ion-col>
 
       <ion-col col-sm-6 col-xs-6>
