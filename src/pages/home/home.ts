@@ -39,6 +39,8 @@ export class HomePage {
         let response = data.body['data'];
 
         localStorage.setItem("data", response.id);
+        localStorage.setItem("data_user", response.user_id);
+        
         let params = {
           id: response.id,
           "user_id": response.user_id,

@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { TransactionsPage } from '../pages/transactions/transactions';
 import { EditProfilePage } from '../pages/edit-profile/edit-profile';
 import { HomePage } from '../pages/home/home';
+import { SocketProvider } from '../providers/socket/socket';
 
 @Component({
   templateUrl: 'app.html'
@@ -17,7 +18,7 @@ export class MyApp {
   editProfilePage:any = EditProfilePage;
   public client:any;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, app: App, public events: Events) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, app: App, public events: Events, public socket: SocketProvider) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -41,12 +42,18 @@ export class MyApp {
   }
 
   openPage(page) {
+    if (page.name == 'TransactionsPage') {
+      this.events.publish('remove-badges', true);
+    }
+    
     this.nav.push(page);
   }
 
   logout() {
     localStorage.removeItem('auth');
     localStorage.removeItem('data');
+    localStorage.removeItem('data_user');
+    this.socket.getCurrentChannel().leave();
     this.nav.setRoot(HomePage);
   }
 }

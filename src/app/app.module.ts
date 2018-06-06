@@ -23,6 +23,7 @@ import { InterceptorModule } from '../module/intercetor.module';
 import { CreditPage } from '../pages/credit/credit';
 import { SendCreditPage } from '../pages/send-credit/send-credit';
 import { TransferInfoComponent } from '../components/transfer-info/transfer-info';
+import { SocketProvider } from '../providers/socket/socket';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { TransferInfoComponent } from '../components/transfer-info/transfer-info
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     SessionProvider,
     ClientProvider,
-    TransactionProvider
+    TransactionProvider,
+    SocketProvider
   ]
 })
 export class AppModule {}
