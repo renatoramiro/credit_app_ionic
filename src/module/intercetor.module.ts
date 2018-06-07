@@ -1,11 +1,12 @@
 import { Injectable, NgModule } from "@angular/core";
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS, HttpResponse, HttpErrorResponse } from "@angular/common/http";
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS, HttpResponse, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
 import { AlertController, Events } from "ionic-angular";
+import { GlobalProvider } from "../providers/global/global";
 
 @Injectable()
 export class HttpsRequestInterceptor implements HttpInterceptor {
-  constructor(public alertCtrl: AlertController, public events: Events) {}
+  constructor(public alertCtrl: AlertController, public events: Events, private global: GlobalProvider) {}
 
   getFields(key) {
     let valuesField = {
@@ -43,7 +44,12 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
     let dupReq = req;
 
     if (auth) {
-      dupReq = req.clone({headers: req.headers.set('Authorization', auth)}); 
+      const headers = new HttpHeaders({
+        'Authorization': auth,
+        'Content-Type': this.global.contentType,
+        "Accept": this.global.versionApi
+      });
+      dupReq = req.clone({headers: headers}); 
     }
     return next.handle(dupReq).do(event => {
       if (event instanceof HttpResponse) {
@@ -73,6 +79,15 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
           this.alertCtrl.create({
             title: 'Tivemos um problema',
             subTitle: messageError,
+            buttons: ['OK']
+          }).present();
+        }
+
+        if (err.status === 406) {
+          this.events.publish('not-authorized', true);
+          this.alertCtrl.create({
+            title: 'Tivemos um problema',
+            subTitle: "Atualize o seu app!",
             buttons: ['OK']
           }).present();
         }

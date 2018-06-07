@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'phoenix-channels';
+import { GlobalProvider } from '../global/global';
 
 /*
   Generated class for the SocketProvider provider.
@@ -13,12 +14,12 @@ export class SocketProvider {
   private socket
   private channel;
 
-  constructor() {
+  constructor(private global: GlobalProvider) {
     console.log('Hello SocketProvider Provider');
   }
 
   connect(token) {
-    this.socket = new Socket("ws://localhost:4000/socket", {params: {token: token}});
+    this.socket = new Socket(this.global.socket + this.global.port + "/socket", {params: {token: token}});
     this.socket.connect();
   }
 

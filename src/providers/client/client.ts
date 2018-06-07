@@ -1,5 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { GlobalProvider } from '../global/global';
 
 /*
   Generated class for the ClientProvider provider.
@@ -10,32 +11,28 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ClientProvider {
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, private global: GlobalProvider) {
     console.log('Hello ClientProvider Provider');
   }
 
   getClientByToken() {
-    let headers = new HttpHeaders({'Content-Type':  'application/json'});
-    return this.http.get("https://creditapp.ml/api/getclientbytoken/",
-      {headers: headers, observe: 'response'});
+    return this.http.get(this.global.baseUrl + this.global.port + this.global.refUrl + "/getclientbytoken/",
+      {observe: 'response'});
   }
 
   createClient(params) {
-    let headers = new HttpHeaders({'Content-Type':  'application/json'});
-    return this.http.post("https://creditapp.ml/api/clients/", JSON.stringify(params),
-      {headers: headers, observe: 'response'});
+    return this.http.post(this.global.baseUrl + this.global.port + this.global.refUrl + "/clients/", JSON.stringify(params),
+      {observe: 'response'});
   }
 
   updateClient(params) {
-    let headers = new HttpHeaders({'Content-Type':  'application/json'});
-    return this.http.put("https://creditapp.ml/api/clients/" + params.client.id,
-      JSON.stringify(params), {headers: headers, observe: 'response'});
+    return this.http.put(this.global.baseUrl + this.global.port + this.global.refUrl + "/clients/" + params.client.id,
+      JSON.stringify(params), {observe: 'response'});
   }
 
   getClientById(id) {
-    let headers = new HttpHeaders({'Content-Type':  'application/json'});
-    return this.http.get("https://creditapp.ml/api/clients/" + id,
-      {headers: headers, observe: 'response'});
+    return this.http.get(this.global.baseUrl + this.global.port + this.global.refUrl + "/clients/" + id,
+      {observe: 'response'});
   }
 
 }

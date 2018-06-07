@@ -1,5 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { GlobalProvider } from '../global/global';
 
 /*
   Generated class for the TransactionProvider provider.
@@ -10,26 +11,23 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class TransactionProvider {
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, private global: GlobalProvider) {
     console.log('Hello TransactionProvider Provider');
   }
 
   getTransactions() {
-    let headers = new HttpHeaders({'Content-Type':  'application/json'});
-    return this.http.get("https://creditapp.ml/api/listcredits/",
-      {headers: headers, observe: 'response'});
+    return this.http.get(this.global.baseUrl + this.global.port + this.global.refUrl + "/listcredits/",
+      {observe: 'response'});
   }
 
   getClientTransaction(params) {
-    let headers = new HttpHeaders({'Content-Type':  'application/json'});
-    return this.http.post("https://creditapp.ml/api/getclient/", JSON.stringify(params),
-      {headers: headers, observe: 'response'});
+    return this.http.post(this.global.baseUrl + this.global.port + this.global.refUrl + "/getclient/", JSON.stringify(params),
+      {observe: 'response'});
   }
 
   sendCredits(params) {
-    let headers = new HttpHeaders({'Content-Type':  'application/json'});
-    return this.http.post("https://creditapp.ml/api/sendcredit/", JSON.stringify(params),
-      {headers: headers, observe: 'response'});
+    return this.http.post(this.global.baseUrl + this.global.port + this.global.refUrl + "/sendcredit/", JSON.stringify(params),
+      {observe: 'response'});
   }
 
 }
