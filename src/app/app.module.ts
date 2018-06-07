@@ -24,6 +24,7 @@ import { CreditPage } from '../pages/credit/credit';
 import { SendCreditPage } from '../pages/send-credit/send-credit';
 import { TransferInfoComponent } from '../components/transfer-info/transfer-info';
 import { SocketProvider } from '../providers/socket/socket';
+import { GlobalProvider } from '../providers/global/global';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { SocketProvider } from '../providers/socket/socket';
     SessionProvider,
     ClientProvider,
     TransactionProvider,
-    SocketProvider
+    SocketProvider,
+    GlobalProvider
   ]
 })
 export class AppModule {}

@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { GlobalProvider } from '../global/global';
 
 /*
   Generated class for the SessionProvider provider.
@@ -10,26 +11,26 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class SessionProvider {
 
-  constructor(public http: HttpClient) {
+  headers: any;
+
+  constructor(public http: HttpClient, private global: GlobalProvider) {
     console.log('Hello SessionProvider Provider');
+    this.headers = new HttpHeaders({'Content-Type':  this.global.contentType, "Accept": this.global.versionApi});
   }
 
   login(credentials) {
-    let headers = new HttpHeaders({'Content-Type':  'application/json'});
-    return this.http.post('https://creditapp.ml/api/signin', JSON.stringify(credentials), {
-      headers: headers, observe: 'response'});
+    return this.http.post(this.global.baseUrl + this.global.port + this.global.refUrl + '/signin', JSON.stringify(credentials), {
+      headers: this.headers, observe: 'response'});
   }
 
   register(params) {
-    let headers = new HttpHeaders({'Content-Type':  'application/json'});
-    return this.http.post('https://creditapp.ml/api/signup', JSON.stringify(params), {
-      headers: headers, observe: 'response'});
+    return this.http.post(this.global.baseUrl + this.global.port + this.global.refUrl + '/signup', JSON.stringify(params), {
+      headers: this.headers, observe: 'response'});
   }
 
   activate_user(params) {
-    let headers = new HttpHeaders({'Content-Type':  'application/json'});
-    return this.http.post('https://creditapp.ml/api/activateuser', JSON.stringify(params), {
-      headers: headers, observe: 'response'});
+    return this.http.post(this.global.baseUrl + this.global.port + this.global.refUrl + '/activateuser', JSON.stringify(params), {
+      headers: this.headers, observe: 'response'});
   }
 
 }
