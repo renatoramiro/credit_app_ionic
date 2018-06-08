@@ -9,10 +9,10 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class GlobalProvider {
 
-  host: string = '10.100.100.9:';
-  baseUrl: string = "http://" + this.host;
-  socket: string = "ws://" + this.host;
-  port: string = "4000";
+  host: string = 'creditapp.ml';
+  baseUrl: string = "https://" + this.host;
+  socket: string = "wss://" + this.host;
+  port: string = "";
   refUrl: string = "/api";
   versionApi: string = "application/vnd.credit-app.v1+json";
   contentType: string = 'application/json'
