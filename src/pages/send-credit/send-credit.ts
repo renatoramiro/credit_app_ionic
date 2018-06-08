@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, Events, ToastController } from 'ionic-angular';
 import { TransactionProvider } from '../../providers/transaction/transaction';
+import { SocketProvider } from '../../providers/socket/socket';
 
 /**
  * Generated class for the SendCreditPage page.
@@ -23,7 +24,7 @@ export class SendCreditPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
       public transactionProvider: TransactionProvider, public loadingCtrl: LoadingController,
-      public events: Events, private toastCtrl: ToastController) {
+      public events: Events, private toastCtrl: ToastController, private socket: SocketProvider) {
     this.origin = navParams.data.origin;
     this.destiny = navParams.data.destiny;
     this.value = parseFloat(navParams.data['value']).toFixed(2);
@@ -47,6 +48,7 @@ export class SendCreditPage {
     this.transactionProvider.sendCredits(params).subscribe(data => {
       loading.dismiss();
       this.origin.credit -= this.value;
+      this.socket.getCurrentChannel().push("transaction:msg", {body: {id: this.destiny.id, value: this.value}});
       this.callback({client: this.origin}).then(()=>{
         this.navCtrl.popToRoot();
      });

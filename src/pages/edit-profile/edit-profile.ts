@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController, Events } from 'ionic-angular';
 import { ClientProvider } from '../../providers/client/client';
+import { SocketProvider } from '../../providers/socket/socket';
 
 /**
  * Generated class for the EditProfilePage page.
@@ -20,7 +21,7 @@ export class EditProfilePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
       public clientProvider: ClientProvider, public loadingCtrl: LoadingController,
-      public toastCtrl: ToastController, public events: Events) {
+      public toastCtrl: ToastController, public events: Events, private socket: SocketProvider) {
   }
 
   ionViewWillEnter() {
@@ -28,6 +29,7 @@ export class EditProfilePage {
     loading.present();
     this.clientProvider.getClientByToken().subscribe((data) => {
       this.client = data.body['data'];
+      this.socket.getCurrentChannel().push("reload_client:msg", {body: {id: this.client.id}});
       loading.dismiss();
     }, (error) => {
       loading.dismiss();

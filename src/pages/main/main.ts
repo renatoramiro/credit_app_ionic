@@ -38,14 +38,16 @@ export class MainPage {
     this.socketProvider.connect(localStorage.getItem('auth'));
     this.socketProvider.join(this.socketProvider.getCurrentSocket(), localStorage.getItem("data"));
 
-    this.socketProvider.getCurrentChannel().on("reload_client:msg", (msg) => {});
+    this.socketProvider.getCurrentChannel().on("reload_client:success:" + localStorage.getItem("data"), (msg) => {
+    });
 
     this.events.subscribe('remove-badges', () => {
       this.showBadge = false;
       this.badgeCount = 0;
     });
 
-    this.socketProvider.getCurrentChannel().on("transaction:msg", (msg) => {
+    this.socketProvider.getCurrentChannel().on("transaction:success:" + localStorage.getItem("data"), (data) => {
+      this.client.credit += parseFloat(data.body.value);
       this.showBadge = true;
       this.badgeCount += 1;
     });
