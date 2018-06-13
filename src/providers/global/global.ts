@@ -15,10 +15,29 @@ export class GlobalProvider {
   port: string = "";
   refUrl: string = "/api";
   versionApi: string = "application/vnd.credit-app.v1+json";
-  contentType: string = 'application/json'
+  contentType: string = 'application/json';
+
+  private userParams: UserParams;
 
   constructor() {
     console.log('Hello GlobalProvider Provider');
   }
 
+  getUserParams(): UserParams {
+    return this.userParams;
+  }
+
+  setUserParams(params): void {
+    this.userParams = params;
+  }
+}
+
+export class UserParams {
+  userId: string;
+  pushToken: string;
+
+  constructor({userId, pushToken}) {
+    this.userId = userId;
+    this.pushToken = pushToken;
+  }
 }

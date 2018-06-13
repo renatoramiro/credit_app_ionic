@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from "@angular/common/http";
 
+
 import { MyApp } from './app.component';
 
 import { HomePage } from '../pages/home/home';
@@ -25,6 +26,7 @@ import { SendCreditPage } from '../pages/send-credit/send-credit';
 import { TransferInfoComponent } from '../components/transfer-info/transfer-info';
 import { SocketProvider } from '../providers/socket/socket';
 import { GlobalProvider } from '../providers/global/global';
+import { OneSignal } from '@ionic-native/onesignal';
 
 @NgModule({
   declarations: [
@@ -71,7 +73,8 @@ import { GlobalProvider } from '../providers/global/global';
     ClientProvider,
     TransactionProvider,
     SocketProvider,
-    GlobalProvider
+    GlobalProvider,
+    OneSignal
   ]
 })
 export class AppModule {}

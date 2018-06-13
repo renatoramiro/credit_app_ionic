@@ -6,6 +6,7 @@ import { MainPage } from '../main/main';
 import { RegistrationComponent } from '../../components/registration/registration';
 import { ActivateUserComponent } from '../../components/activate-user/activate-user';
 import { CreateClientComponent } from '../../components/create-client/create-client';
+import { GlobalProvider } from '../../providers/global/global';
 
 @Component({
   selector: 'page-home',
@@ -16,7 +17,7 @@ export class HomePage {
 
   constructor(public navCtrl: NavController, public sessionProvider: SessionProvider,
     public loadingCtrl: LoadingController, public modalCtrl: ModalController,
-    public toastCtrl: ToastController) {
+    public toastCtrl: ToastController, private global: GlobalProvider) {
       this.setupInput();
       this.setRootPage();
   }
@@ -30,7 +31,9 @@ export class HomePage {
 
   login(): void {
     const loading = this.loadingCtrl.create({content: 'Fazendo login...'});
-    let params = {"session": {"identity_document": this.input.document, "password": this.input.password}};
+    const player_id = this.global.getUserParams() ? this.global.getUserParams().userId : "1122";
+
+    let params = {"session": {"identity_document": this.input.document, "password": this.input.password, "player_id": player_id}};
     
     if (this.input.document !== '' && this.input.password !== '') {
       loading.present();

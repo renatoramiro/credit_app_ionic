@@ -7,6 +7,8 @@ import { TransactionsPage } from '../pages/transactions/transactions';
 import { EditProfilePage } from '../pages/edit-profile/edit-profile';
 import { HomePage } from '../pages/home/home';
 import { SocketProvider } from '../providers/socket/socket';
+import { OneSignal } from '@ionic-native/onesignal';
+import { UserParams, GlobalProvider } from '../providers/global/global';
 
 @Component({
   templateUrl: 'app.html'
@@ -18,12 +20,17 @@ export class MyApp {
   editProfilePage:any = EditProfilePage;
   public client:any;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, app: App, public events: Events, public socket: SocketProvider) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, app: App, public events: Events,
+    public socket: SocketProvider, private oneSignal: OneSignal, public global: GlobalProvider) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+
+      if (!platform.is("mobileweb")) {
+        this.initOneSignal();
+      }
     });
 
     this.events.subscribe('load-client', (client) => {
@@ -39,6 +46,29 @@ export class MyApp {
         this.logout();
       }
     })
+  }
+
+  initOneSignal() {
+    this.oneSignal.startInit('OneSignal-App-ID', 'Google-Project-Number');
+
+    this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
+
+    this.oneSignal.handleNotificationReceived().subscribe((jsonData) => {
+    // do something when notification is received
+    console.log('handleNotificationReceivedCallback: ' + JSON.stringify(jsonData));
+    });
+
+    this.oneSignal.handleNotificationOpened().subscribe((jsonData) => {
+      // do something when a notification is opened
+      console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+    });
+
+    this.oneSignal.getIds().then((jsonData) => {
+      const params = new UserParams(jsonData);
+      this.global.setUserParams(params);
+    });
+
+    this.oneSignal.endInit();
   }
 
   openPage(page) {
